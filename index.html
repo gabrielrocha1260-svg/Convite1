@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Amanda Moreira, eu poderia te chamar pra sair?</title>
+  <meta name="description" content="Um convite um pouco diferente.">
+  <meta name="theme-color" content="#000000">
+  <meta name="robots" content="noindex">
+
+  <!-- Prévia do link no WhatsApp -->
+  <meta property="og:title" content="Amanda Moreira! Eu Poderia te chamar pra sair?">
+  <meta property="og:description" content="Um convite um pouco diferente, com algumas ideias pra gente escolher.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23d4161c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-screen="invite">
+  <p class="sr-only" id="live" aria-live="polite"></p>
+
+  <main>
+    <!-- TELA 1: o convite -->
+    <section class="screen" id="screen-invite" aria-labelledby="invite-title">
+      <header class="topbar">
+        <span>Convite para uma pessoa só</span><span class="topbar__line" aria-hidden="true"></span><span>edição única</span>
+      </header>
+
+      <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+        <defs><path id="sc" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs>
+        <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <g class="stamp__ring"><text><textPath href="#sc">pensado com calma ✶ sem pressão ✶ só um convite ✶</textPath></text></g>
+        <circle cx="60" cy="60" r="12" fill="#d4161c"/>
+      </svg>
+
+      <div class="invite">
+        <h1 id="invite-title">Amanda Moreira!&#32;<span>Eu Poderia te chamar pra sair?</span></h1>
+
+        <div class="invite__text">
+          <p>Eu poderia ter só puxado assunto e mandado um “bora sair?”.</p>
+          <p>Mas me deu vontade de capricar um pouco.</p>
+          <p>Então fiz um convite <mark>um pouco diferente</mark>, com algumas ideias pra gente escolher juntos.</p>
+        </div>
+
+        <div class="choices">
+          <button class="btn btn--yes" id="btnYes" type="button">Sim, eu topo</button>
+          <span class="no-slot"><span class="runner" id="runner"><button class="btn btn--no" id="btnNo" type="button">Não</button><span class="legs" aria-hidden="true"><i></i><i></i></span></span></span>
+          <div class="no-character" id="noCharacter" aria-live="polite" aria-atomic="true" hidden><span class="no-character__face" aria-hidden="true">ಠ‿ಠ</span><p class="quip" id="quip">Ei, eu sou só um botãozinho...</p></div>
+        </div>
+        <p id="declineWrap" hidden><button class="link" id="btnDeclineForReal" type="button">Quer responder não sem brincadeira? Tudo bem, é só tocar aqui.</button></p>
+        <p class="foot">Feito à mão, com carinho e um pouco de CSS.</p>
+      </div>
+    </section>
+
+    <!-- TELA 2: as ideias -->
+    <section class="screen" id="screen-catalog" aria-labelledby="catalog-title" hidden>
+      <header class="catalog-head">
+        <h2 id="catalog-title" tabindex="-1" data-focus>Boa. Agora escolhe uma jogada.</h2>
+        <p>Algumas são tranquilas, outras são só pela resenha. Nenhuma é reserva: são pontos de partida pra gente combinar.</p>
+        <div class="chips" id="chips" role="group" aria-label="Filtrar por categoria"></div>
+      </header>
+      <ul class="cards" id="cards"></ul>
+      <footer class="catalog-foot">
+        <p>Nenhuma convenceu? Eu topo ouvir a sua.</p>
+        <a class="btn" id="btnSuggest" target="_blank" rel="noopener">Sugerir outro rolê</a>
+        <p class="warn" id="suggestWarn" hidden></p>
+      </footer>
+    </section>
+
+    <!-- TELA 3: o "não" respeitado -->
+    <section class="screen" id="screen-declined" aria-labelledby="declined-title" hidden>
+      <div class="invite">
+        <h2 id="declined-title" tabindex="-1" data-focus>Tudo bem, sem climão.</h2>
+        <p>Valeu por ter olhado até aqui. O botão “não” mandou dizer que já se acalmou.</p>
+        <button class="link" id="btnBack" type="button">Voltar ao convite</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Detalhes da ideia -->
+  <dialog class="detail" id="detail" aria-labelledby="detailTitle">
+    <div class="detail__ph" id="detailPh"></div>
+    <div class="detail__body">
+      <span class="tag" id="detailTag"></span>
+      <h3 id="detailTitle"></h3>
+      <p id="detailDesc"></p>
+      <p class="reply" id="detailReply"></p>
+      <a class="btn btn--yes btn--block" id="btnWhats" target="_blank" rel="noopener">Escolher essa</a>
+      <p class="warn" id="whatsWarn" hidden></p>
+      <p class="fine">Abre o WhatsApp com uma mensagem pronta. Você confere e envia se quiser. Ainda não é reserva.</p>
+      <p class="fine image-note">Fotos ilustrativas de imagens públicas da web.</p>
+      <button class="btn btn--block" type="button" data-close>Ver outras ideias</button>
+    </div>
+  </dialog>
+
+  <div class="curtain" id="curtain" aria-hidden="true"><p>boa.</p></div>
+  <noscript><p class="noscript">Este convite precisa de JavaScript ligado pra funcionar.</p></noscript>
+</body>
+</html>
